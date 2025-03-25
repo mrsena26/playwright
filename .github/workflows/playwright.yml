@@ -23,7 +23,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install playwright pytest
           playwright install
-
+      - name: Ensure browsers are installed
+        run: python -m playwright install --with-deps
       - name: Run Playwright tests
         run: |
           pytest tests/ --tracing=retain-on-failure
