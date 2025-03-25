@@ -1,0 +1,31 @@
+name: Playwright Tests (Python)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          venv\Scripts\activate
+          pip install playwright pytest
+          playwright install
+
+      - name: Run Playwright tests
+        run: |
+          venv\Scripts\activate
+          pytest tests/
